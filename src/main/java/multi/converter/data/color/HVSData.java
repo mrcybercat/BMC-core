@@ -1,7 +1,6 @@
 package multi.converter.data.color;
 
 import multi.converter.data.color.abstractions.ColorChannelName;
-import multi.converter.data.color.abstractions.ColorData;
 import multi.converter.data.color.abstractions.wrappers.DoubleColorData;
 import multi.converter.util.MatrixWrapper;
 

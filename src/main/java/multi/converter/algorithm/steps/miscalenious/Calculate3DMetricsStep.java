@@ -5,16 +5,11 @@ import multi.converter.algorithm.steps.AlgorithmStep;
 import multi.converter.algorithm.steps.UnableToPerformStepException;
 import multi.converter.algorithm.steps.convertions.ConvertImageSequenceToCuboidDataStep;
 import multi.converter.algorithm.steps.file.ExtractRGBDataFromImageSequenceStep;
-import multi.converter.algorithm.steps.file.ExtractRGBFromImageStep;
-import multi.converter.algorithm.steps.file.ReadImageFromAFileStep;
 import multi.converter.algorithm.steps.file.ReadImageSequenceFromFileStep;
 import multi.converter.data.CuboidData;
-import multi.converter.data.RGBSequence;
 import multi.converter.data.SourceFile;
-import multi.converter.data.color.RGBData;
 import multi.converter.metrics.abstractions.MetricWorkflow;
 import multi.converter.metrics.abstractions.MetricWorkflowType;
-import multi.converter.metrics.factories.ImageMetricWorkflowFactory;
 import multi.converter.metrics.factories.Metric3DWorkflowFactory;
 
 public class Calculate3DMetricsStep extends AlgorithmStep<CuboidData, CuboidData> {

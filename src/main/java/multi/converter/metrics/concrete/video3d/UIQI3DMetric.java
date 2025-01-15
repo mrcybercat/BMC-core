@@ -1,11 +1,8 @@
 package multi.converter.metrics.concrete.video3d;
 
-import multi.converter.algorithm.steps.UnableToPerformStepException;
 import multi.converter.data.CuboidData;
-import multi.converter.data.color.RGBData;
 import multi.converter.metrics.abstractions.Metric;
 import multi.converter.metrics.abstractions.MetricType;
-import multi.converter.util.MatrixMetrics;
 import multi.converter.util.Matrix3DStatistics;
 
 public class UIQI3DMetric extends Metric<CuboidData> {

@@ -1,14 +1,9 @@
 package multi.converter.metrics.concrete.videoSeq;
 
-import multi.converter.algorithm.steps.UnableToPerformStepException;
 import multi.converter.data.RGBSequence;
-import multi.converter.data.color.RGBData;
 import multi.converter.metrics.abstractions.Metric;
 import multi.converter.metrics.abstractions.MetricType;
 import multi.converter.util.MatrixMetrics;
-import multi.converter.util.MatrixStatistics;
-
-import java.util.Objects;
 
 public class GMSDSequentialMetric extends Metric<RGBSequence> {
 

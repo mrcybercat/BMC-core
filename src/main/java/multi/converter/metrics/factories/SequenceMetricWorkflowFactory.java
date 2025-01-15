@@ -1,12 +1,9 @@
 package multi.converter.metrics.factories;
 
 import multi.converter.data.RGBSequence;
-import multi.converter.data.color.RGBData;
 import multi.converter.metrics.abstractions.Metric;
 import multi.converter.metrics.abstractions.MetricWorkflow;
 import multi.converter.metrics.abstractions.MetricWorkflowType;
-import multi.converter.metrics.concrete.image.MSEMetric;
-import multi.converter.metrics.concrete.image.PNSRMetric;
 import multi.converter.metrics.concrete.videoSeq.*;
 
 import java.util.ArrayList;

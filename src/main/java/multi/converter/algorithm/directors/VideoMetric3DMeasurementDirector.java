@@ -6,7 +6,6 @@ import multi.converter.algorithm.steps.convertions.ConvertImageSequenceToCuboidD
 import multi.converter.algorithm.steps.file.ExtractRGBDataFromImageSequenceStep;
 import multi.converter.algorithm.steps.file.ReadImageSequenceFromFileStep;
 import multi.converter.algorithm.steps.miscalenious.Calculate3DMetricsStep;
-import multi.converter.algorithm.steps.miscalenious.CalculateSequentialMetricsStep;
 
 import static multi.converter.metrics.abstractions.MetricWorkflowType.COMPREHENSIVE_IMAGE;
 
