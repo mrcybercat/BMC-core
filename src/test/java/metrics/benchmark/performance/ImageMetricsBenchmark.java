@@ -1,4 +1,4 @@
-package metrics.benchmark;
+package metrics.benchmark.performance;
 
 import multi.converter.algorithm.steps.file.ExtractRGBFromImageStep;
 import multi.converter.algorithm.steps.file.ReadImageFromAFileStep;
@@ -9,10 +9,13 @@ import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@BenchmarkMode({Mode.AverageTime, Mode.Throughput})
+@OutputTimeUnit(TimeUnit.SECONDS)
 @State(Scope.Benchmark)
-public class ImageMetricBenchmark {
+@Fork(value = 2, warmups = 1)
+@Warmup(iterations = 2)
+@Measurement(iterations = 3)
+public class ImageMetricsBenchmark {
     SourceFile fileOriginal = new SourceFile("src\\main\\resources\\img.png");
     SourceFile fileAltered = new SourceFile("src\\main\\resources\\img.png");
 

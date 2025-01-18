@@ -1,23 +1,27 @@
-package metrics.benchmark;
+package metrics.benchmark.performance;
 
+import multi.converter.algorithm.steps.convertions.ConvertImageSequenceToCuboidDataStep;
 import multi.converter.algorithm.steps.file.ExtractRGBDataFromImageSequenceStep;
 import multi.converter.algorithm.steps.file.ReadImageSequenceFromFileStep;
-import multi.converter.data.RGBSequence;
+import multi.converter.data.CuboidData;
 import multi.converter.data.SourceFile;
-import multi.converter.metrics.concrete.videoSeq.*;
+import multi.converter.metrics.concrete.video3d.*;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@BenchmarkMode({Mode.AverageTime, Mode.Throughput})
+@OutputTimeUnit(TimeUnit.SECONDS)
 @State(Scope.Benchmark)
-public class SequentialMetricsBenchmark {
+@Fork(value = 2, warmups = 1)
+@Warmup(iterations = 2)
+@Measurement(iterations = 3)
+public class Metrics3DBenchmark {
     SourceFile fileOriginal = new SourceFile("src\\main\\resources\\video.mp4");
     SourceFile fileAltered = new SourceFile("src\\main\\resources\\video.mp4");
 
-    RGBSequence dataOriginal = null;
-    RGBSequence dataAltered = null;
+    CuboidData dataOriginal = null;
+    CuboidData dataAltered = null;
 
     @Setup(Level.Trial)
     public void setup() {
@@ -27,34 +31,36 @@ public class SequentialMetricsBenchmark {
 
     @Benchmark
     public void benchmarkGMSD() {
-        GMSDSequentialMetric metric = new GMSDSequentialMetric();
+        GMSD3DMetric metric = new GMSD3DMetric();
         metric.calculateMetric(dataOriginal, dataAltered);
     }
     @Benchmark
     public void benchmarkSSIM() {
-        SSIMSequentialMetric metric = new SSIMSequentialMetric();
+        SSIM3DMetric metric = new SSIM3DMetric();
         metric.calculateMetric(dataOriginal, dataAltered);
     }
     @Benchmark
     public void benchmarkUIQI() {
-        UIQISequentialMetric metric = new UIQISequentialMetric();
+        UIQI3DMetric metric = new UIQI3DMetric();
         metric.calculateMetric(dataOriginal, dataAltered);
     }
     @Benchmark
     public void benchmarkMSE() {
-        MSESequentialMetric metric = new MSESequentialMetric();
+        MSE3DMetric metric = new MSE3DMetric();
         metric.calculateMetric(dataOriginal, dataAltered);
     }
     @Benchmark
     public void benchmarkPNSR() {
-        PNSRSequentialMetric metric = new PNSRSequentialMetric();
+        PNSR3DMetric metric = new PNSR3DMetric();
         metric.calculateMetric(dataOriginal, dataAltered);
     }
 
-    private RGBSequence prepareData(SourceFile file){
+    private CuboidData prepareData(SourceFile file){
         ReadImageSequenceFromFileStep read = new ReadImageSequenceFromFileStep();
         ExtractRGBDataFromImageSequenceStep extractRGB = new ExtractRGBDataFromImageSequenceStep();
-        return extractRGB.performAlgorithmStep(
-                        read.performAlgorithmStep(file));
+        ConvertImageSequenceToCuboidDataStep convert = new ConvertImageSequenceToCuboidDataStep();
+        return convert.performAlgorithmStep(
+                    extractRGB.performAlgorithmStep(
+                        read.performAlgorithmStep(file)));
     }
 }
