@@ -7,8 +7,8 @@ import multi.converter.data.CuboidData;
 import multi.converter.data.SourceFile;
 import multi.converter.metrics.abstractions.Metric;
 import multi.converter.metrics.concrete.video3d.*;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -57,7 +57,7 @@ public class Metrics3DAccuracyTest {
         dataThunderCompr3X = prepareData(fileThunderCompr3X);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracyGMSDWhiteVsBlack() {
         GMSD3DMetric metric = new GMSD3DMetric();
@@ -104,7 +104,7 @@ public class Metrics3DAccuracyTest {
         printResult(dataThunderOrig, dataThunderCompr3X, metric);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracySSIMWhiteVsBlack() {
         SSIM3DMetric metric = new SSIM3DMetric();
@@ -151,7 +151,7 @@ public class Metrics3DAccuracyTest {
         printResult(dataThunderOrig, dataThunderCompr3X, metric);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracyUIQIWhiteVsBlack() {
         UIQI3DMetric metric = new UIQI3DMetric();
@@ -198,7 +198,7 @@ public class Metrics3DAccuracyTest {
         printResult(dataThunderOrig, dataThunderCompr3X, metric);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracyMSEWhiteVsBlack() {
         MSE3DMetric metric = new MSE3DMetric();
@@ -245,7 +245,7 @@ public class Metrics3DAccuracyTest {
         printResult(dataThunderOrig, dataThunderCompr3X, metric);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracyPNSRWhiteVsBlack() {
         PNSR3DMetric metric = new PNSR3DMetric();

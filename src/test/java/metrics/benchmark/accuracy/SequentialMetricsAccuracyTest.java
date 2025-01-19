@@ -6,8 +6,8 @@ import multi.converter.data.RGBSequence;
 import multi.converter.data.SourceFile;
 import multi.converter.metrics.abstractions.Metric;
 import multi.converter.metrics.concrete.videoSeq.*;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -57,7 +57,7 @@ public class SequentialMetricsAccuracyTest {
         dataThunderCompr3X = prepareData(fileThunderCompr3X);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracyGMSDWhiteVsBlack() {
         GMSDSequentialMetric metric = new GMSDSequentialMetric();
@@ -104,7 +104,7 @@ public class SequentialMetricsAccuracyTest {
         printResult(dataThunderOrig, dataThunderCompr3X, metric);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracySSIMWhiteVsBlack() {
         SSIMSequentialMetric metric = new SSIMSequentialMetric();
@@ -151,7 +151,7 @@ public class SequentialMetricsAccuracyTest {
         printResult(dataThunderOrig, dataThunderCompr3X, metric);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracyUIQIWhiteVsBlack() {
         UIQISequentialMetric metric = new UIQISequentialMetric();
@@ -198,7 +198,7 @@ public class SequentialMetricsAccuracyTest {
         printResult(dataThunderOrig, dataThunderCompr3X, metric);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracyMSEWhiteVsBlack() {
         MSESequentialMetric metric = new MSESequentialMetric();
@@ -245,7 +245,7 @@ public class SequentialMetricsAccuracyTest {
         printResult(dataThunderOrig, dataThunderCompr3X, metric);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void accuracyPNSRWhiteVsBlack() {
         PNSRSequentialMetric metric = new PNSRSequentialMetric();
