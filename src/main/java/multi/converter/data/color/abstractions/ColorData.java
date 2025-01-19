@@ -30,7 +30,6 @@ public abstract class ColorData<T> implements DataClass, MetricTarget {
         if(!hasSameDimensions(this)){
             return null;
         }
-        System.out.println("getAveragedChannel:ColorData");
         double[][] averagedChannel = new double[getFirstChannelHeight()][getFirstChannelWidth()];
         for (int y = 0; y < this.getFirstChannelHeight(); y++) {
             for (int x = 0; x < this.getFirstChannelWidth(); x++) {
