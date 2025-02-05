@@ -1,7 +1,7 @@
 package multi.converter.algorithm.directors;
 
 import multi.converter.Options;
-import multi.converter.algorithm.steps.compression.DivideInto8x8BlocksStep;
+import multi.converter.algorithm.steps.compression.DivideIntoBlocksStep;
 import multi.converter.algorithm.steps.compression.FlattenBlocksZigZagStep;
 import multi.converter.algorithm.steps.compression.ForwardDCTStep;
 import multi.converter.algorithm.steps.convertions.ConvertRGBtoYUVStep;
@@ -17,7 +17,7 @@ public class JPEGCompressionDirector implements AlgorithmDirector {
                 .addStep(new ReadImageFromAFileStep())
                 .addStep(new ExtractRGBFromImageStep())
                 .addStep(new ConvertRGBtoYUVStep())
-                .addStep(new DivideInto8x8BlocksStep())
+                .addStep(new DivideIntoBlocksStep(8))
                 .addStep(new ForwardDCTStep())
                 .addStep(new FlattenBlocksZigZagStep())
                 .getAlgorithm();

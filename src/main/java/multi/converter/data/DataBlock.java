@@ -1,19 +1,21 @@
 package multi.converter.data;
 
+import java.util.Arrays;
+
 public class DataBlock {
-    double[][] block;
+    private int size = 8;
+    private double[][] block;
+
+    public DataBlock(int size) {
+        this.size = size;
+        this.block = new double[size][size];
+        Arrays.stream(block).forEach(a -> Arrays.fill(a, 0));
+    }
+
 
     public DataBlock() {
-        this.block = new double[][]{
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0}
-        };
+        this.block = new double[size][size];
+        Arrays.stream(block).forEach(a -> Arrays.fill(a, 0));
     }
 
     public double[][] getBlock() {
@@ -27,7 +29,4 @@ public class DataBlock {
     public double getBlockValueOnXY(int x, int y){
         return block[y][x];
     }
-
-
-
 }

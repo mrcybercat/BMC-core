@@ -6,7 +6,14 @@ import multi.converter.data.color.YUVData;
 import multi.converter.algorithm.steps.AlgorithmStep;
 import multi.converter.algorithm.steps.UnableToPerformStepException;
 
-public class DivideInto8x8BlocksStep extends AlgorithmStep<BlockData, YUVData> {
+public class DivideIntoBlocksStep extends AlgorithmStep<BlockData, YUVData> {
+
+    private static int blockSize;
+
+    public DivideIntoBlocksStep(int blockSize){
+        this.blockSize = blockSize;
+    }
+
     /**
      * Splits the YUV data into 8x8 blocks and stores them in a BlockData object.
      *
@@ -32,15 +39,15 @@ public class DivideInto8x8BlocksStep extends AlgorithmStep<BlockData, YUVData> {
         int height = channel.length;
         int width = channel[0].length;
 
-        int blocksPerRow = width / 8;
-        int blocksPerColumn = height / 8;
+        int blocksPerRow = width / blockSize;
+        int blocksPerColumn = height / blockSize;
 
         DataBlock[] blocks = new DataBlock[blocksPerRow * blocksPerColumn];
 
         int blockIndex = 0;
         for (int row = 0; row < blocksPerColumn; row++) {
             for (int col = 0; col < blocksPerRow; col++) {
-                blocks[blockIndex] = extractBlock(channel, row * 8, col * 8);
+                blocks[blockIndex] = extractBlock(channel, row * blockSize, col * blockSize);
                 blockIndex++;
             }
         }
@@ -57,9 +64,9 @@ public class DivideInto8x8BlocksStep extends AlgorithmStep<BlockData, YUVData> {
      * @return a DataBlock object containing the 8x8 block of data
      */
     private static DataBlock extractBlock(byte[][] channel, int startRow, int startCol) {
-        DataBlock block = new DataBlock();
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
+        DataBlock block = new DataBlock(blockSize);
+        for (int y = 0; y < blockSize; y++) {
+            for (int x = 0; x < blockSize; x++) {
                 block.setBlockValueOnXY(channel[startRow + y][startCol + x], x, y);
             }
         }
