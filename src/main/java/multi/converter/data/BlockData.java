@@ -10,4 +10,16 @@ public class BlockData implements DataClass {
         this.blocksV = blocksV;
         this.blocksY = blocksY;
     }
+
+    public DataBlock[] getBlocksU() {
+        return blocksU;
+    }
+
+    public DataBlock[] getBlocksV() {
+        return blocksV;
+    }
+
+    public DataBlock[] getBlocksY() {
+        return blocksY;
+    }
 }

@@ -12,10 +12,21 @@ public class DataBlock {
         Arrays.stream(block).forEach(a -> Arrays.fill(a, 0));
     }
 
+    public DataBlock(double[][] block) {
+        if(block.length != block[0].length){
+            throw new IllegalArgumentException();
+        }
+        this.size = block.length;
+        this.block = block;
+    }
 
     public DataBlock() {
         this.block = new double[size][size];
         Arrays.stream(block).forEach(a -> Arrays.fill(a, 0));
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public double[][] getBlock() {
