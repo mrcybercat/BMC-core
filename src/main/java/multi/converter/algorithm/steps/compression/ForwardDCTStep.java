@@ -20,7 +20,7 @@ public class ForwardDCTStep extends AlgorithmStep<BlockData, BlockData> {
         for(int i = 0; i < result.length; i++){
             result[i] = runDCT(blocks[i]);
         }
-        return blocks;
+        return result;
     }
 
     private DataBlock runDCT(DataBlock sourceBlock){

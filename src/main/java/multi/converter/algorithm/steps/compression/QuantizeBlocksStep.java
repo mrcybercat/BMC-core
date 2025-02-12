@@ -42,7 +42,7 @@ public class QuantizeBlocksStep extends AlgorithmStep<BlockData, BlockData> {
         for(int i = 0; i < result.length; i++){
             result[i] = quantize(blocks[i], quantMatrixY);
         }
-        return blocks;
+        return result;
     }
 
     private DataBlock[] quantizeChromaBlocks(DataBlock[] blocks){
@@ -50,7 +50,7 @@ public class QuantizeBlocksStep extends AlgorithmStep<BlockData, BlockData> {
         for(int i = 0; i < result.length; i++){
             result[i] = quantize(blocks[i], quantMatrixUV);
         }
-        return blocks;
+        return result;
     }
 
 
