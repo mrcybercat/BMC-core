@@ -37,7 +37,7 @@ public class HuffmanEncodingStep extends AlgorithmStep<HuffmanEncodedData, RLEEn
         // Step 5: Convert to byte array
         byte[] encodedBytes = binaryStringToBytes(encodedText);
 
-        return new HuffmanEncodedData(encodedBytes, root);
+        return new HuffmanEncodedData(encodedBytes, encodedText.length(), root);
     }
 
     public static byte[] binaryStringToBytes(String binary) {

@@ -5,11 +5,25 @@ import java.util.PriorityQueue;
 
 public class HuffmanEncodedData implements DataClass{
     HuffmanNode root;
+    int length;
     byte[] code;
 
-    public HuffmanEncodedData(byte[] code, HuffmanNode root) {
+    public HuffmanEncodedData(byte[] code, int length, HuffmanNode root) {
         this.code = code;
+        this.length = length;
         this.root = root;
+    }
+
+    public byte[] getCode() {
+        return code;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public HuffmanNode getRoot() {
+        return root;
     }
 
     // Method to build Huffman Tree and generate Huffman Codes
@@ -63,4 +77,5 @@ public class HuffmanEncodedData implements DataClass{
         }
         return encoded.toString();
     }
+
 }
