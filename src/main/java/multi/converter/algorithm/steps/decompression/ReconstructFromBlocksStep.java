@@ -12,14 +12,22 @@ public class ReconstructFromBlocksStep extends AlgorithmStep<YUVData, BlockData>
     private int scaleFactorU = 1;
     private int scaleFactorV = 1;
 
-    private static int blockSize;
+    private int blockSize;
     private int originalWidth;
     private int originalHeight;
 
-    public ReconstructFromBlocksStep(int blockSize, int originalWidth, int originalHeight) {
+    public ReconstructFromBlocksStep(int blockSize,
+                                     int originalWidth,
+                                     int originalHeight,
+                                     int scaleFactorY,
+                                     int scaleFactorU,
+                                     int scaleFactorV){
         this.blockSize = blockSize;
-        this.originalWidth = originalWidth;
         this.originalHeight = originalHeight;
+        this.originalWidth = originalWidth;
+        this.scaleFactorU = scaleFactorU;
+        this.scaleFactorV = scaleFactorV;
+        this.scaleFactorY = scaleFactorY;
     }
 
     @Override
@@ -37,7 +45,7 @@ public class ReconstructFromBlocksStep extends AlgorithmStep<YUVData, BlockData>
         return YUVData.fromArrays(luma, chromaU, chromaV);
     }
 
-    private static byte[][] reconstructChannelFromBlocks(DataBlock[] blocks, int width, int height) {
+    private byte[][] reconstructChannelFromBlocks(DataBlock[] blocks, int width, int height) {
         byte[][] channel = new byte[height][width];
 
         int blocksPerRow = width / blockSize;

@@ -10,18 +10,10 @@ import java.util.Arrays;
 
 public class RecontructZigZagToBlocksStep extends AlgorithmStep<BlockData, DataBatch> {
 
-    private int scaleFactorY = 1;
-    private int scaleFactorU = 1;
-    private int scaleFactorV = 1;
-
     private int blockSize;
-    private int originalWidth;
-    private int originalHeight;
 
     public RecontructZigZagToBlocksStep(int blockSize, int originalWidth, int originalHeight) {
         this.blockSize = blockSize;
-        this.originalWidth = originalWidth;
-        this.originalHeight = originalHeight;
     }
 
     @Override
@@ -31,10 +23,6 @@ public class RecontructZigZagToBlocksStep extends AlgorithmStep<BlockData, DataB
                 writeChannelBlocks(source.getArrU()),
                 writeChannelBlocks(source.getArrV())
         );
-
-        System.out.println("RecontructZigZagToBlocksStep: resulting BlockData: " + result.toString());
-
-
 
         return result;
     }

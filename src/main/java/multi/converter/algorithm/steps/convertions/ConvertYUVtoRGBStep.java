@@ -11,6 +11,9 @@ public class ConvertYUVtoRGBStep extends AlgorithmStep<RGBData, YUVData> {
     @Override
     public RGBData performAlgorithmStep(YUVData source) {
         if (source.getHeight() != source.getHeightChromaU() || source.getWidth() != source.getWidthChromaV()) {
+            System.out.println("Y height " + source.getHeightLuma() + "width " + source.getWidthLuma());
+            System.out.println("U height " + source.getHeightChromaU() + "width " + source.getWidthChromaU());
+            System.out.println("V height " + source.getHeightChromaV() + "width " + source.getWidthChromaV());
             throw new UnableToPerformStepException("Cannot perform conversion if U or V channels were down scaled by unspecified factor");
         }
 

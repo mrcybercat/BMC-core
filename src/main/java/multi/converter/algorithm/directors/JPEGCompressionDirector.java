@@ -25,6 +25,7 @@ public class JPEGCompressionDirector implements AlgorithmDirector {
                 .addStep(new ReadImageFromAFileStep())
                 .addStep(new ExtractRGBFromImageStep())
                 .addStep(new ConvertRGBtoYUVStep())
+                .addStep(new DownscaleChromaStep(options.UVDownScaleFactor(), options.UVDownScaleFactor()))
                 .addStep(new DivideIntoBlocksStep(8))
                 .addStep(new ForwardDCTStep())
                 .addStep(new QuantizeBlocksStep())
@@ -33,11 +34,22 @@ public class JPEGCompressionDirector implements AlgorithmDirector {
                 .addStep(new HuffmanEncodingStep())
                 // decompression
                 .addStep(new HuffmanDecodingStep())
-                .addStep(new RLEDecodingStep(8, readWidth(options.sourcePath()), readHeight(options.sourcePath())))
+                .addStep(new RLEDecodingStep(
+                        8,
+                        readWidth(options.sourcePath()),
+                        readHeight(options.sourcePath()),
+                        options.UVDownScaleFactor()))
                 .addStep(new RecontructZigZagToBlocksStep(8, readWidth(options.sourcePath()), readHeight(options.sourcePath())))
                 .addStep(new DequantizeBlocksStep())
                 .addStep(new InverseDCTStep())
-                .addStep(new ReconstructFromBlocksStep(8, readWidth(options.sourcePath()), readHeight(options.sourcePath())))
+                .addStep(new ReconstructFromBlocksStep(
+                        8,
+                        readWidth(options.sourcePath()),
+                        readHeight(options.sourcePath()),
+                        1,
+                        options.UVDownScaleFactor(),
+                        options.UVDownScaleFactor()))
+                .addStep(new RescaleChromaStep(options.UVDownScaleFactor(), options.UVDownScaleFactor()))
                 .addStep(new ConvertYUVtoRGBStep())
                 .addStep(new SaveRGBToImageStep())
                 .addStep(new SaveImageToFileStep("jpeg", options.outputPath()))

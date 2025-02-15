@@ -11,30 +11,37 @@ import java.util.List;
 
 public class RLEDecodingStep extends AlgorithmStep<DataBatch, RLEEncodedData> {
 
-    private int scaleFactorY = 1;
     private int scaleFactorU = 1;
-    private int scaleFactorV = 1;
+    private int blockSize = 8;
 
-    private static int blockSize;
     private int originalWidth;
     private int originalHeight;
 
 
-    public RLEDecodingStep(int blockSize, int originalWidth, int originalHeight) {
+    public RLEDecodingStep(int blockSize, int originalWidth, int originalHeight, int scaleFactorU) {
         this.blockSize = blockSize;
         this.originalWidth = originalWidth;
         this.originalHeight = originalHeight;
+        this.scaleFactorU = scaleFactorU;
     }
 
     @Override
     public DataBatch performAlgorithmStep(RLEEncodedData source) throws UnableToPerformStepException {
         int[] data = decodeRLE(source.getCode());
-        System.out.println("RLE data:" + Arrays.toString(data));
-        //int effectiveSize = (originalWidth*originalHeight/blockSize);
+        int blocksPerRow = (int) Math.ceil(originalWidth / (double) blockSize);
+        int blocksPerColumn = (int) Math.ceil(originalHeight / (double) blockSize);
+        int targetWidth = blocksPerRow * blockSize;
+        int targetHeight = blocksPerColumn * blockSize;
+
+        //System.out.println("RLE data:" + Arrays.toString(data));
         return new DataBatch(
-                Arrays.copyOfRange(data, 0, (originalWidth*originalHeight)),
-                Arrays.copyOfRange(data, (originalWidth*originalHeight) + 1, 2*(originalWidth*originalHeight)),
-                Arrays.copyOfRange(data, 2*(originalWidth*originalHeight) + 1, data.length));
+                Arrays.copyOfRange(data, 0, (targetWidth*targetHeight)),
+                Arrays.copyOfRange(data,
+                        (targetWidth*targetHeight) + 1,
+                        targetWidth*targetHeight + targetWidth*targetHeight/scaleFactorU),
+                Arrays.copyOfRange(data,
+                        targetWidth*targetHeight + targetWidth*targetHeight/scaleFactorU + 1,
+                        data.length));
     }
 
     public static int[] decodeRLE(String encoded) {
@@ -57,6 +64,4 @@ public class RLEDecodingStep extends AlgorithmStep<DataBatch, RLEEncodedData> {
         // Convert List<Integer> to int[]
         return resultList.stream().mapToInt(Integer::intValue).toArray();
     }
-
-
 }
