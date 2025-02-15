@@ -8,6 +8,10 @@ import multi.converter.data.color.YUVData;
 
 public class ReconstructFromBlocksStep extends AlgorithmStep<YUVData, BlockData> {
 
+    private int scaleFactorY = 1;
+    private int scaleFactorU = 1;
+    private int scaleFactorV = 1;
+
     private static int blockSize;
     private int originalWidth;
     private int originalHeight;
@@ -20,11 +24,17 @@ public class ReconstructFromBlocksStep extends AlgorithmStep<YUVData, BlockData>
 
     @Override
     public YUVData performAlgorithmStep(BlockData source) throws UnableToPerformStepException {
-        byte[][] yChannel = reconstructChannelFromBlocks(source.getBlocksY(), originalWidth, originalHeight);
-        byte[][] uChannel = reconstructChannelFromBlocks(source.getBlocksU(), originalWidth, originalHeight);
-        byte[][] vChannel = reconstructChannelFromBlocks(source.getBlocksV(), originalWidth, originalHeight);
+        byte[][] luma = reconstructChannelFromBlocks(source.getBlocksY(),
+                originalWidth / scaleFactorY,
+                originalHeight / scaleFactorY);
+        byte[][] chromaU = reconstructChannelFromBlocks(source.getBlocksU(),
+                originalWidth / scaleFactorU,
+                originalHeight / scaleFactorU);
+        byte[][] chromaV = reconstructChannelFromBlocks(source.getBlocksV(),
+                originalWidth / scaleFactorV,
+                originalHeight / scaleFactorV);
 
-        return YUVData.fromArrays(yChannel, uChannel, vChannel);
+        return YUVData.fromArrays(luma, chromaU, chromaV);
     }
 
     private static byte[][] reconstructChannelFromBlocks(DataBlock[] blocks, int width, int height) {
