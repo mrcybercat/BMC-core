@@ -39,8 +39,8 @@ public class DivideIntoBlocksStep extends AlgorithmStep<BlockData, YUVData> {
         int height = channel.length;
         int width = channel[0].length;
 
-        int blocksPerRow = width / blockSize;
-        int blocksPerColumn = height / blockSize;
+        int blocksPerRow = (int) Math.ceil(width / (double) blockSize);
+        int blocksPerColumn = (int) Math.ceil(height / (double) blockSize);
 
         DataBlock[] blocks = new DataBlock[blocksPerRow * blocksPerColumn];
 
@@ -67,7 +67,9 @@ public class DivideIntoBlocksStep extends AlgorithmStep<BlockData, YUVData> {
         DataBlock block = new DataBlock(blockSize);
         for (int y = 0; y < blockSize; y++) {
             for (int x = 0; x < blockSize; x++) {
-                block.setBlockValueOnXY(channel[startRow + y][startCol + x], x, y);
+                if((startRow + y) < channel.length && (startCol + x) < channel[0].length) {
+                    block.setBlockValueOnXY(channel[startRow + y][startCol + x], x, y);
+                }
             }
         }
         return block;
