@@ -58,7 +58,11 @@ public class QuantizeBlocksStep extends AlgorithmStep<BlockData, BlockData> {
         double[][] quantizedBlock = new double[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                quantizedBlock[i][j] = Math.round((float) block.getBlockValueOnXY(j, i) / quantMatrix[i][j]);
+                //System.out.println(block.getBlockValueOnXY(j, i) +  "/ " + quantMatrix[i][j] + "=" +  Math.round(block.getBlockValueOnXY(j, i)/quantMatrix[i][j]));
+
+                quantizedBlock[i][j] = Math.round(block.getBlockValueOnXY(j, i) / quantMatrix[i][j]);
+                //System.out.println(quantizedBlock[i][j]);
+
             }
         }
         return new DataBlock(quantizedBlock);

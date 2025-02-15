@@ -59,7 +59,7 @@ public class DequantizeBlocksStep extends AlgorithmStep<BlockData, BlockData> {
         double[][] dequantizedBlock = new double[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                dequantizedBlock[i][j] = Math.round((float) block.getBlockValueOnXY(j, i) * quantMatrix[i][j]);
+                dequantizedBlock[i][j] = Math.round( block.getBlockValueOnXY(j, i) * quantMatrix[i][j]);
             }
         }
         return new DataBlock(dequantizedBlock);
