@@ -8,9 +8,9 @@ import multi.converter.algorithm.Algorithm;
 public class Workflow {
 
     private Algorithm algorithm;
-    private Options options;
+    private AlgorithmOptions options;
 
-    public Workflow(Options options) {
+    public Workflow(AlgorithmOptions options) {
         this.options = options;
         switch (options.type()) {
             case STANDARD_JPEG ->

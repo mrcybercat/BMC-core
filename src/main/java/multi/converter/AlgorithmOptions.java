@@ -4,31 +4,28 @@ import multi.converter.algorithm.AlgorithmType;
 
 import java.util.Objects;
 
-public record Options(
+public record AlgorithmOptions(
         String sourcePath,
         String outputPath,
         Integer UVDownScaleFactor,
         AlgorithmType type,
-        Boolean enableMetrics,
-        MetaData metadata) {
+        Boolean enableMetrics) {
 
-    public Options {
+    public AlgorithmOptions {
         Objects.requireNonNull(sourcePath);
         Objects.requireNonNull(outputPath);
         Objects.requireNonNull(UVDownScaleFactor);
         Objects.requireNonNull(type);
         Objects.requireNonNull(enableMetrics);
-        Objects.requireNonNull(metadata);
     }
 
-    public static Options extractOptions(String[] args) {
-        return new Options(
+    public static AlgorithmOptions extractOptions(String[] args) {
+        return new AlgorithmOptions(
                 "src\\main\\resources\\small.png",
                 "src\\main\\resources\\yuv.jpeg",
                 1,
                 AlgorithmType.STANDARD_JPEG,
-                false,
-                new MetaData()
+                false
         );
     }
 

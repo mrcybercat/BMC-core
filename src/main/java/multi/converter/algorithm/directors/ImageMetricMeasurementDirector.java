@@ -1,6 +1,6 @@
 package multi.converter.algorithm.directors;
 
-import multi.converter.Options;
+import multi.converter.AlgorithmOptions;
 import multi.converter.algorithm.Algorithm;
 import multi.converter.algorithm.steps.file.ExtractRGBFromImageStep;
 import multi.converter.algorithm.steps.file.ReadImageFromAFileStep;
@@ -10,11 +10,11 @@ import static multi.converter.metrics.abstractions.MetricWorkflowType.COMPREHENS
 
 public class ImageMetricMeasurementDirector implements AlgorithmDirector {
     @Override
-    public Algorithm defineAlgorithm(Algorithm.AlgorithmBuilder builder, Options options) {
+    public Algorithm defineAlgorithm(Algorithm.AlgorithmBuilder builder, AlgorithmOptions options) {
         return Algorithm.AlgorithmBuilder.newInstance()
                 .addStep(new ReadImageFromAFileStep())
                 .addStep(new ExtractRGBFromImageStep())
-                .addStep(new CalculateMetricsStep(options.sourcePath(), COMPREHENSIVE_IMAGE))
+                .addStep(new CalculateMetricsStep(options.outputPath(), COMPREHENSIVE_IMAGE))
                 .getAlgorithm();
     }
 }
