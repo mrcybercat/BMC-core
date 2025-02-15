@@ -40,4 +40,11 @@ public class DataBlock {
     public double getBlockValueOnXY(int x, int y){
         return block[y][x];
     }
+
+    @Override
+    public String toString() {
+        return "DataBlock{" +
+                "block=" + Arrays.deepToString(block) +
+                '}';
+    }
 }
