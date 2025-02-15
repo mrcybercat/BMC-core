@@ -23,48 +23,27 @@ public class InverseDCTStep extends AlgorithmStep<BlockData, BlockData> {
     }
 
     private DataBlock runInverseDCT(DataBlock sourceBlock){
-        int i, j, k, l;
-        int m = sourceBlock.getSize();
-        int n = sourceBlock.getSize();
+        double[][] matrix = sourceBlock.getBlock();
+        int N = matrix.length;
+        int M = matrix[0].length;
+        double[][] idct = new double[N][M];
 
-        // dct will store the discrete cosine transform
-        double[][] dct = new double[m][n];
-
-        double ck, cl, dct1, sum;
-
-        for (i = 0; i < m; i++)
-        {
-            for (j = 0; j < n; j++)
-            {
-                // sum will temporarily store the sum of
-                // cosine signals
-                sum = 0;
-                for (k = 0; k < m; k++)
-                {
-                    for (l = 0; l < n; l++)
-                    {
-                        // ci and cj depends on frequency as well as
-                        // number of row and columns of specified matrix
-                        if (k == 0)
-                            ck = 1 / Math.sqrt(m);
-                        else
-                            ck = Math.sqrt(2) / Math.sqrt(m);
-
-                        if (l == 0)
-                            cl = 1 / Math.sqrt(n);
-                        else
-                            cl = Math.sqrt(2) / Math.sqrt(n);
-
-                        dct1 = sourceBlock.getBlockValueOnXY(k, l) *
-                                Math.cos((2 * k + 1) * i * Math.PI / (2 * m)) *
-                                Math.cos((2 * l + 1) * j * Math.PI / (2 * n));
-
-                        sum = sum + ck * cl * dct1;
+        for (int x = 0; x < N; x++) {
+            for (int y = 0; y < M; y++) {
+                double sum = 0.0;
+                for (int u = 0; u < N; u++) {
+                    for (int v = 0; v < M; v++) {
+                        double alphaU = (u == 0) ? (1.0 / Math.sqrt(N)) : (Math.sqrt(2.0 / N));
+                        double alphaV = (v == 0) ? (1.0 / Math.sqrt(M)) : (Math.sqrt(2.0 / M));
+                        sum += alphaU * alphaV * matrix[u][v] *
+                                Math.cos((2 * x + 1) * u * Math.PI / (2 * N)) *
+                                Math.cos((2 * y + 1) * v * Math.PI / (2 * M));
                     }
                 }
+                idct[x][y] = sum;
             }
         }
-        return new DataBlock(dct);
+        return new DataBlock(idct);
     }
 
 }

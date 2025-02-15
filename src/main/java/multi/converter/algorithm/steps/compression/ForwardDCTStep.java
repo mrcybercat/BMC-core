@@ -8,11 +8,15 @@ import multi.converter.data.DataBlock;
 public class ForwardDCTStep extends AlgorithmStep<BlockData, BlockData> {
     @Override
     public BlockData performAlgorithmStep(BlockData source) throws UnableToPerformStepException {
-        return new BlockData(
-                            runDCTonBlocks(source.getBlocksY()),
-                            runDCTonBlocks(source.getBlocksU()),
-                            runDCTonBlocks(source.getBlocksV())
+        BlockData result = new BlockData(
+                runDCTonBlocks(source.getBlocksY()),
+                runDCTonBlocks(source.getBlocksU()),
+                runDCTonBlocks(source.getBlocksV())
         );
+
+        System.out.println("ForwardDCTStep: resulting BlockData: " + result.toString());
+
+        return result;
     }
 
     private DataBlock[] runDCTonBlocks(DataBlock[] blocks){
@@ -24,45 +28,24 @@ public class ForwardDCTStep extends AlgorithmStep<BlockData, BlockData> {
     }
 
     private DataBlock runDCT(DataBlock sourceBlock){
-        int i, j, k, l;
-        int m = sourceBlock.getSize();
-        int n = sourceBlock.getSize();
+        double[][] matrix = sourceBlock.getBlock();
+        int N = matrix.length;
+        int M = matrix[0].length;
+        double[][] dct = new double[N][M];
 
-        // dct will store the discrete cosine transform
-        double[][] dct = new double[m][n];
-
-        double ci, cj, dct1, sum;
-
-        for (i = 0; i < m; i++)
-        {
-            for (j = 0; j < n; j++)
-            {
-                // ci and cj depends on frequency as well as
-                // number of row and columns of specified matrix
-                if (i == 0)
-                    ci = 1 / Math.sqrt(m);
-                else
-                    ci = Math.sqrt(2) / Math.sqrt(m);
-
-                if (j == 0)
-                    cj = 1 / Math.sqrt(n);
-                else
-                    cj = Math.sqrt(2) / Math.sqrt(n);
-
-                // sum will temporarily store the sum of
-                // cosine signals
-                sum = 0;
-                for (k = 0; k < m; k++)
-                {
-                    for (l = 0; l < n; l++)
-                    {
-                        dct1 = sourceBlock.getBlockValueOnXY(k, l) *
-                                Math.cos((2 * k + 1) * i * Math.PI / (2 * m)) *
-                                Math.cos((2 * l + 1) * j * Math.PI / (2 * n));
-                        sum = sum + dct1;
+        for (int u = 0; u < N; u++) {
+            for (int v = 0; v < M; v++) {
+                double sum = 0.0;
+                for (int x = 0; x < N; x++) {
+                    for (int y = 0; y < M; y++) {
+                        sum += matrix[x][y] *
+                                Math.cos((2 * x + 1) * u * Math.PI / (2 * N)) *
+                                Math.cos((2 * y + 1) * v * Math.PI / (2 * M));
                     }
                 }
-                dct[i][j] = ci * cj * sum;
+                double alphaU = (u == 0) ? (1.0 / Math.sqrt(N)) : (Math.sqrt(2.0 / N));
+                double alphaV = (v == 0) ? (1.0 / Math.sqrt(M)) : (Math.sqrt(2.0 / M));
+                dct[u][v] = alphaU * alphaV * sum;
             }
         }
         return new DataBlock(dct);
