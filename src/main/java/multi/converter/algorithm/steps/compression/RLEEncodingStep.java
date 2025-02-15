@@ -6,6 +6,7 @@ import multi.converter.data.DataBatch;
 import multi.converter.data.RLEEncodedData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // int[] -> String -> byte[]
@@ -14,6 +15,15 @@ public class RLEEncodingStep extends AlgorithmStep<RLEEncodedData, DataBatch> {
 
     @Override
     public RLEEncodedData performAlgorithmStep(DataBatch source) throws UnableToPerformStepException {
+        System.out.println("RLE: source.getArrY() = " + Arrays.toString(source.getArrY()));
+
+
+        System.out.println("RLE: code = " +
+                createRLECode(rleEncode(source.getArrY())) +
+                        createRLECode(rleEncode(source.getArrU())) +
+                        createRLECode(rleEncode(source.getArrV()))
+        );
+
         return new RLEEncodedData(
                     createRLECode(rleEncode(source.getArrY())) +
                     createRLECode(rleEncode(source.getArrU())) +
@@ -31,7 +41,7 @@ public class RLEEncodingStep extends AlgorithmStep<RLEEncodedData, DataBatch> {
 
     private List<int[]> rleEncode(int[] data) {
         List<int[]> rleEncoding = new ArrayList<>();
-        int count = 0;
+        int count = 1;
 
         for (int i = 0; i < data.length; i++) {
             int value = data[i];
