@@ -23,10 +23,10 @@ public record Options(
 
     public static Options extractOptions(String[] args) {
         return new Options(
-                "src\\main\\resources\\img.png",
+                "src\\main\\resources\\small.png",
                 "src\\main\\resources\\yuv.jpeg",
                 1,
-                AlgorithmType.YUV_CONVERSION,
+                AlgorithmType.STANDARD_JPEG,
                 false,
                 new MetaData()
         );
