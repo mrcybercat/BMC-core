@@ -31,11 +31,16 @@ public class MainDriver {
 
             switch (command) {
                 case "compress":
+                    int scale = 1;
+                    if (cmd.hasOption("s")){
+                        scale = Integer.parseInt(cmd.getOptionValue("s"));
+                    }
+
                     workflow = new Workflow(
                             new AlgorithmOptions(
                                 cmd.getOptionValue("i"),
                                 cmd.getOptionValue("o"),
-                                2,
+                                scale,
                                 AlgorithmType.STANDARD_JPEG,
                                 false
                             )
@@ -102,7 +107,7 @@ public class MainDriver {
     private static Options getOptions() {
         Options options = new Options();
 
-        Option help = new Option("i", "input", false, "Usage information");
+        Option help = new Option("h", "help", false, "Usage information");
         help.setRequired(false);
         options.addOption(help);
 
@@ -113,6 +118,10 @@ public class MainDriver {
         Option output = new Option("o", "output", true, "Output file path");
         output.setRequired(true);
         options.addOption(output);
+
+        Option scale = new Option("s", "scale", true, "Specify scale for down sampling UV channels (disabled by default)");
+        scale.setRequired(false);
+        options.addOption(scale);
 
         Option preset = new Option("p", "preset", true, "Preset for metrics");
         preset.setRequired(false);
