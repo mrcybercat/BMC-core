@@ -23,9 +23,11 @@ public class FlattenBlocksZigZagStep extends AlgorithmStep<DataBatch, BlockData>
 
         for(int i = 0; i < blocks.length; i++){
             int[] flattenedDataBlock = zigZagMatrix(blocks[i].getBlock());
+            int indexBlock = 0;
             for(int j = 0; j < blocks[0].getSize(); j++){
                 for(int k = 0; k < blocks[0].getSize(); k++){
-                    flattenedBlockData[index] = flattenedDataBlock[j * k + k];
+                    flattenedBlockData[index] = flattenedDataBlock[indexBlock];
+                    indexBlock++;
                     index++;
                 }
             }
@@ -51,7 +53,7 @@ public class FlattenBlocksZigZagStep extends AlgorithmStep<DataBatch, BlockData>
             for (int i = 0; i < len; ++i) {
                 blockFlattened[index] = (int) mat[row][col];
                 index++;
-                System.out.print(mat[row][col] + " ");
+                //System.out.print(mat[row][col] + " ");
 
                 if (i + 1 == len) break;
 
@@ -96,7 +98,7 @@ public class FlattenBlocksZigZagStep extends AlgorithmStep<DataBatch, BlockData>
             for (int i = 0; i < len; ++i) {
                 blockFlattened[index] = (int) mat[row][col];
                 index++;
-                System.out.print(mat[row][col] + " ");
+                //System.out.print(mat[row][col] + " ");
 
                 if (i + 1 == len) break;
 
